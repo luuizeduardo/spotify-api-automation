@@ -1,6 +1,7 @@
+require('dotenv').config()
 const request = require("request")
 const env = require('./environment')
-require('dotenv').config()
+const cache = require("./services/cache")
 
 function getAuthentication() {
 
@@ -18,14 +19,13 @@ function getAuthentication() {
 
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
-        if(error){
-          return reject("Fail to retrieve acess token: " + error);
-        }
-        return resolve(body.access_token);
+      if(error){
+        return reject("Fail to retrieve acess token: " + error);
+      }
+      cache.setUserToken(body.access_token)
+      resolve();
     });
   });
 }
 
-exports.auth = {
-  getAuthentication
-}
+getAuthentication()
