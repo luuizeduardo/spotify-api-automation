@@ -1,10 +1,10 @@
-const fs = require('fs')
+require('dotenv').config()
+const redis = require('redis')
+const cache = redis.createClient()
 
-const path = './temp.json'
-
-try {
-  fs.unlinkSync(path)
-  //file removed
-} catch(err) {
-  console.error(err)
+function deleteCache() {
+  cache.del(process.env.KEY_AUTH_TOKEN)
+  cache.unref()
 }
+
+deleteCache()

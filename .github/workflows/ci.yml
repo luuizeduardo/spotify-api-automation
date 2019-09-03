@@ -20,12 +20,13 @@ jobs:
     - name: npm install and test
       run: |
         npm install
-        npm test
+        npm run ci
       env:
         CI: true
         SPOTIFY_ID: ${{ secrets.SPOTIFY_ID }}
-        AUTH_INVALID_TOKEN: ${{ secrets.AUTH_INVALID_TOKEN }}
         SPOTIFY_SECRET: ${{ secrets.SPOTIFY_SECRET }}
+        AUTH_INVALID_TOKEN: ${{ secrets.AUTH_INVALID_TOKEN }}
+        KEY_AUTH_TOKEN: ${{ secrets.KEY_AUTH_TOKEN }}
         MOCHAWESOME_REPORTDIR: report
         MOCHAWESOME_REPORTFILENAME: testReport
         MOCHAWESOME_QUIET: true

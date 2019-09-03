@@ -1,28 +1,19 @@
-const fs = require("fs")
+require('dotenv').config()
+const redis = require('redis')
+const cache = redis.createClient()
 
 function getUserToken() {
   return new Promise(function (resolve, reject) {
-    fs.readFile("./temp.json" , "utf8", function(err, data){
-      if(err){
-        return reject("Fail to read file: " + err)
-      }
-      var jsonData = JSON.parse(data)
-      resolve(jsonData.token)
-    })
-  });
+    cache.get(process.env.KEY_AUTH_TOKEN, function(err, reply) {
+      resolve(reply)
+    });
+    cache.unref()
+  })
 }
 
 function setUserToken(token) {
-  try {
-    fs.writeFileSync("./temp.json", JSON.stringify(
-      {
-        "token": token
-      }
-    ))
-  }
-  catch (err) {
-    console.error(err)
-  }
+  cache.set(process.env.KEY_AUTH_TOKEN, token)
+  cache.unref()
 }
 
 module.exports = {
