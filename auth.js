@@ -1,6 +1,5 @@
 require('dotenv').config()
 const request = require("request")
-const env = require('./environment')
 const cache = require("./services/cache")
 
 function getAuthentication() {
