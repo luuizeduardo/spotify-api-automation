@@ -4,10 +4,7 @@
   "description": "Spotify API Automation",
   "main": "index.js",
   "scripts": {
-    "redis-start": "docker run --name redis-mocha -d -p 6379:6379 redis:alpine",
-    "redis-stop": "docker stop redis-mocha && docker rm redis-mocha",
-    "test": "node auth.js && mocha && node del.js",
-    "redis-exec": "docker exec -it redis-mocha redis-cli"
+    "test": "node auth.js && mocha && node del.js"
   },
   "repository": {
     "type": "git",
