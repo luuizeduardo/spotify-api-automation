@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "create-redis": "docker run --name redis-mocha -d -p 6379:6379 redis:alpine",
-    "test": "node auth.js && mocha && node del.js",
-    "ci": "npm run create-redis && node auth.js && mocha && node del.js"
+    "test": "node auth.js && mocha",
+    "ci": "npm run create-redis && node auth.js && mocha"
   },
   "repository": {
     "type": "git",

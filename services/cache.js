@@ -16,7 +16,13 @@ function setUserToken(token) {
   cache.unref()
 }
 
+function deleteCache() {
+  cache.del(process.env.KEY_AUTH_TOKEN)
+  cache.unref()
+}
+
 module.exports = {
   setUserToken,
-  getUserToken
+  getUserToken,
+  deleteCache
 }

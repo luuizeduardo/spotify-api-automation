@@ -12,11 +12,10 @@ before(async function () {
 })
 
 describe("API testing for artists endpoint",function(){
-
   it("should return the artist Alesso",function(){
     request.get(
       {
-        url : env.urlBase + "/v1/artists/" + env.artist_valid_id,
+        url: env.urlBase + "/v1/artists/" + env.artist_valid_id,
         headers:  {
           "Authorization": "Bearer " + token
         }
@@ -26,7 +25,6 @@ describe("API testing for artists endpoint",function(){
         var _body = {}
         try{
           _body = JSON.parse(body)
-
         }
         catch(e){
           _body = {}
@@ -39,10 +37,34 @@ describe("API testing for artists endpoint",function(){
     )
   })
 
+  it("should return an error message with invalid id",function(){
+    request.get(
+      {
+        url: env.urlBase + "/v1/artists/" + env.artist_invalid_id,
+        headers:  {
+          "Authorization": "Bearer " + token
+        }
+      },
+
+      function(error, response, body){
+        var _body = {}
+        try{
+          _body = JSON.parse(body)
+        }
+        catch(e){
+          _body = {}
+        }
+
+        expect(response.statusCode).to.equal(400)
+        expect(_body.error.message).to.equal("invalid id")
+      }
+    )
+  })
+
   it("should return an error message with invalid token",function(){
     request.get(
       {
-        url : env.urlBase + "/v1/artists/" + env.artist_valid_id,
+        url: env.urlBase + "/v1/artists/" + env.artist_valid_id,
         headers:  {
           "Authorization": "Bearer " + process.env.AUTH_INVALID_TOKEN
         }
@@ -52,7 +74,6 @@ describe("API testing for artists endpoint",function(){
         var _body = {}
         try{
           _body = JSON.parse(body)
-
         }
         catch(e){
           _body = {}
@@ -67,14 +88,13 @@ describe("API testing for artists endpoint",function(){
   it("should return an error message with no token in header",function(){
     request.get(
       {
-        url : env.urlBase + "/v1/artists/" + env.artist_valid_id
+        url: env.urlBase + "/v1/artists/" + env.artist_valid_id
       },
 
       function(error, response, body){
         var _body = {}
         try{
           _body = JSON.parse(body)
-
         }
         catch(e){
           _body = {}
