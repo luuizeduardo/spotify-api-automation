@@ -8,5 +8,5 @@ module.exports = {
       "6Ad1E9vl75ZB3Ir87zwXIJ", // TIM - Avicii
       "1JawI0XkEwmQ5Bwef3RMbq", // World war joy - The chainsmokers
     ],
-    "artist_invalid_id": "6Ad1E9v"
+    "album_invalid_id": "6Ad1E9v"
 }
