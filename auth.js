@@ -21,8 +21,14 @@ function getAuthentication() {
       if(error){
         return reject("Fail to retrieve acess token: " + error);
       }
-      cache.setUserToken(body.access_token)
-      resolve();
+
+      if (body.access_token) {
+        cache.setUserToken(body.access_token)
+        resolve();
+      }
+      else {
+        reject("Invalid Token")
+      }
     });
   });
 }
