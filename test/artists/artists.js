@@ -37,6 +37,56 @@ describe("API testing for artists endpoint",function(){
     )
   })
 
+  it("should return and error message with missing query parameter",function(){
+    request.get(
+      {
+        url: env.urlBase + "/v1/artists/" + env.artist_valid_id + "/top-tracks",
+        headers:  {
+          "Authorization": "Bearer " + token
+        }
+      },
+
+      function(error, response, body){
+        var _body = {}
+        try{
+          _body = JSON.parse(body)
+        }
+        catch(e){
+          _body = {}
+        }
+
+        expect(response.statusCode).to.equal(400)
+        expect(_body.error.message).to.equal("missing country parameter")
+        expect(_body.error.message).to.be.a('string')
+      }
+    )
+  })
+
+  it("should return the top tracks of Alesso",function(){
+    request.get(
+      {
+        url: env.urlBase + "/v1/artists/" + env.artist_valid_id + "/top-tracks?country=BR",
+        headers:  {
+          "Authorization": "Bearer " + token
+        }
+      },
+
+      function(error, response, body){
+        var _body = {}
+        try{
+          _body = JSON.parse(body)
+        }
+        catch(e){
+          _body = {}
+        }
+
+        expect(response.statusCode).to.equal(200)
+        expect(_body.tracks[0].name).to.equal("Let Me Go (with Alesso, Florida Georgia Line & watt)")
+        expect(_body.tracks[1].name).to.equal("REMEDY")
+      }
+    )
+  })
+
   it("should return an error message with invalid id",function(){
     request.get(
       {
